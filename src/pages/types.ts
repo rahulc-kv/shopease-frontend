@@ -18,6 +18,13 @@ export type FormFieldValues = {
   weight: string;
 };
 
+export type TranslateFormFieldValues = {
+  name: string;
+  description: string;
+  howToUse: string;
+  ingredients: string;
+};
+
 export type ProductImageType = {
   url: string;
   description: string;

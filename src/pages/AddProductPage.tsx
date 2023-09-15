@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Modal } from "@mui/material";
 import CustomSwitch from "components/custom-switch/CustomSwitch";
 import { CSV_FORMAT } from "components/filedropzone/constants";
@@ -5,16 +6,28 @@ import FileUploader from "components/fileuploader/FileUploader";
 import RichTextEditor from "components/richTextEditor/RichTextEditor";
 import CustomTextField from "components/text-field/CustomTextField";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { FormFieldValues } from "./types";
+import { FormFieldValues, TranslateFormFieldValues } from "./types";
+
+import { Verified } from "assets/icons";
 
 const AddProductPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [currentField, setCurrentField] = useState<string>();
   const [showCommitmentAmount, setshowCommitmentAmount] =
-  useState<boolean>(false);
+    useState<boolean>(false);
+
+  const [openModal, setOpenModal] = useState(false);
+  const [verifyTranslate, setVerifyTransalate] = useState('');
+  const [verifiedTranslations, setVerifiedTransaltions] = useState<string[]>([]);
+  const [translatedValues, setTranslatedValues] = useState({
+    malayalam: {},
+    hindi: {},
+    tamil: {}
+  });
+
   const {
     control,
     handleSubmit,
@@ -41,6 +54,41 @@ const AddProductPage = () => {
       weight: "",
     },
   });
+
+  const {
+    control: translateControl,
+    setValue: setTranslateValue,
+    handleSubmit: translateHandleSubmit,
+    formState: { errors: translateErrors },
+  } = useForm<TranslateFormFieldValues>({
+    defaultValues: {
+      name: "",
+      description: "",
+      howToUse: "",
+      ingredients: "",
+    },
+    // resolver: yupResolver(createSyndicateSchema) as never as Resolver<
+    //   FormFieldValues,
+    //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    //   any
+    // >,
+  });
+
+  useEffect(() => {
+    if (verifyTranslate) {
+      // call api;
+      const response = {
+        name: 'Name',
+        description: "desc",
+        ingredients: "sdjfhdgsf",
+        howToUse: "sdsfsdf"
+      }
+      setTranslateValue('name', response.name);
+      setTranslateValue('description', response.description);
+      setTranslateValue('howToUse', response.howToUse);
+      setTranslateValue('ingredients', response.ingredients);
+    }
+  }, [verifyTranslate]);
 
   const handleData = (values: FormFieldValues) => {
     console.log(values);
@@ -85,6 +133,24 @@ const AddProductPage = () => {
     boxShadow: 24,
     p: 4
   };
+  const handleTranslateVerifiedData = (values: TranslateFormFieldValues) => {
+    setTranslatedValues((curr) => ({
+      ...curr,
+      [verifyTranslate]: values
+    }))
+    setVerifiedTransaltions((curState) => {
+      curState.push(verifyTranslate);
+      return curState;
+    })
+    setVerifyTransalate('');
+
+  }
+  console.log(translatedValues);
+
+  const translateSubmitHandler = () => {
+    return translateHandleSubmit(handleTranslateVerifiedData);
+  };
+
 
   return (
     <div className="m-8 bg-white p-8">
@@ -100,13 +166,13 @@ const AddProductPage = () => {
       <div className="flex flex-row justify-between items-center text-xl font-semibold">
         <div className="flex flex-row justify-center items-center">
           <span className="mr-4">Add Product</span>
-        <CustomSwitch
-              name="isArchived"
-              control={control}
-              label={'Is Archived'}
-              checked={showCommitmentAmount}
-              handleChange={onClickToggleCommitmentAmount}
-            />
+          <CustomSwitch
+            name="isArchived"
+            control={control}
+            label={'Is Archived'}
+            checked={showCommitmentAmount}
+            handleChange={onClickToggleCommitmentAmount}
+          />
         </div>
         <div
           className="flex justify-end text-sm
@@ -153,7 +219,7 @@ const AddProductPage = () => {
             errors={errors}
             multiline
             rows={3}
-            onClickTextField={()=>{setShowModal(true)}}
+            onClickTextField={() => { setShowModal(true) }}
             wrapperClass="pt-6 mr-6 w-full"
           />
         </div>
@@ -260,6 +326,13 @@ const AddProductPage = () => {
         </div>
         <div className="flex justify-end mt-8 mr-auto rounded-md text-white">
           <button
+            className="p-3 bg-primary rounded-md mr-6"
+            type="submit"
+            onClick={() => setOpenModal(true)}
+          >
+            Translate Details
+          </button>
+          <button
             className="p-3 bg-primary rounded-md"
             type="submit"
             onClick={submitHandler()}
@@ -316,7 +389,129 @@ const AddProductPage = () => {
           </div>
         </div>
       </Modal>
-    </div>
+
+      <Modal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div className="flex justify-center items-center h-full">
+          <div className=" relative flex items-center p-8 font-workSans text-[#212529] bg-white w-[800px] h-[400px] rounded-lg" >
+            <div
+              className="absolute top-5 text-2xl cursor-pointer right-5"
+              onClick={() => setOpenModal(false)}
+            >
+              X
+            </div>
+            <div className="flex flex-col w-full">
+              <div className="flex flex-row justify-between items-center border border-gray-300 rounded-lg shadow-lg w-full p-4 mb-4">
+                Verify transation in Malayalam
+                {verifiedTranslations.includes('malayalam') ? (
+                  <Verified width={80} height={40} />
+                ) : (
+                  <div
+                    className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer"
+                    onClick={() => setVerifyTransalate('malayalam')}>
+                    Verify
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-row justify-between items-center border border-gray-300 rounded-lg shadow-lg w-full p-4 mb-4">
+                Verify transation in Hindi
+                {verifiedTranslations.includes('hindi') ? (
+                  <Verified width={80} height={40} />
+                ) : (
+                  <div className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer"
+                    onClick={() => setVerifyTransalate('hindi')}>
+                    Verify
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-row justify-between items-center border border-gray-300 rounded-lg shadow-lg w-full p-4 mb-4">
+                Verify transation in Tamil
+                {verifiedTranslations.includes('tamil') ? (
+                  <Verified width={80} height={40} />
+                ) : (
+                  <div className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer"
+                    onClick={() => setVerifyTransalate('tamil')}>
+                    Verify
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
+
+
+      <Modal
+        open={!!verifyTranslate}
+        onClose={() => setVerifyTransalate('')}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div className="flex justify-center items-center h-full">
+          <div className=" relative flex flex-col items-center p-8 font-workSans text-[#212529] bg-white w-[800px] h-[520px] rounded-lg" >
+            <div
+              className="absolute top-5 text-2xl cursor-pointer right-5"
+              onClick={() => setVerifyTransalate('')}
+            >
+              X
+            </div>
+            <div className="w-full text-xl font-workSans text-[#212529]">
+              Verify Transalation in {verifyTranslate}
+            </div>
+            <div className="w-full">
+              <CustomTextField
+                name="name"
+                placeholder={"Name"}
+                control={translateControl}
+                errors={translateErrors}
+                wrapperClass="pt-6 mr-6 w-full"
+              />
+              <CustomTextField
+                name="description"
+                placeholder={"Description"}
+                control={translateControl}
+                errors={translateErrors}
+                multiline
+                rows={3}
+                wrapperClass="pt-6 mr-6 w-full"
+              />
+              <CustomTextField
+                name="ingredients"
+                placeholder={"Ingredients"}
+                control={translateControl}
+                errors={translateErrors}
+                wrapperClass="pt-6 mr-6 w-full"
+              />
+              <CustomTextField
+                name="howToUse"
+                placeholder={"How to use"}
+                control={translateControl}
+                errors={translateErrors}
+                wrapperClass="pt-6 mr-6 w-full"
+              />
+            </div>
+            <div className=" flex w-full justify-end mt-10">
+              <div className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer mr-4"
+                onClick={() => setVerifyTransalate('')}>
+                Back
+              </div>
+              <div className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer"
+                onClick={
+                  translateSubmitHandler()
+                }>
+                Confirm
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal >
+
+
+    </div >
   );
 };
 
