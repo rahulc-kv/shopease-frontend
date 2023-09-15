@@ -1,17 +1,35 @@
-import baseApi from './index';
+import { baseApi, baseApi2 } from "./index";
 
-const getProductsApi = baseApi.injectEndpoints({
+const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query<any, void>({
-        query: () => ({
-          url: '/products',
-          method: 'get'
-        }),
-        providesTags: ['products.list']
+      query: () => ({
+        url: "/products",
+        method: "GET",
       }),
-  })
+      providesTags: ["products.list"],
+    }),
+  }),
+});
+const uploadsApi = baseApi2.injectEndpoints({
+  endpoints: (builder) => ({
+    postBulkUpload: builder.mutation<any, File>({
+      query: (payload) => {
+        const formData = new FormData();
+        console.log('sdffdsf', payload);
+        
+        formData.append("csv_file", payload);
+        return {
+          url: "/sellease-ai/process-csv",
+          method: "POST",
+          body: formData,        
+        };
+      },
+      invalidatesTags: ["products.list"],
+    }),
+  }),
 });
 
-export default getProductsApi;
+export const { usePostBulkUploadMutation } = uploadsApi;
 
-export const { useGetProductsQuery } = getProductsApi;
+export const { useLazyGetProductsQuery, useGetProductsQuery } = productsApi;
