@@ -33,6 +33,8 @@ import { ReactComponent as Group} from "./group.svg"
 import { ReactComponent as Verified} from "./verified.svg"
 import { ReactComponent as Globe} from "./globe.svg"
 import { ReactComponent as DownArrow} from "./downArrow.svg"
+import { ReactComponent as SellEaseWhite} from "./sellEaseWhite.svg"
+
 
 
 
@@ -70,5 +72,6 @@ export {
   Group,
   Verified,
   Globe,
-  DownArrow
+  DownArrow,
+  SellEaseWhite
 };

@@ -1,4 +1,4 @@
-import { SellEase } from "assets/icons";
+import { SellEase, SellEaseWhite } from "assets/icons";
 import NavBar from "components/nav-bar/NavBar";
 import TopBar from "components/top-bar/TopBar";
 import AddProductPage from "pages/AddProductPage";
@@ -46,7 +46,7 @@ const navBarItems = [
   },
 ];
 
-const title = () => <SellEase height={45} width={200} />;
+const title = () => <SellEaseWhite height={45} width={200} />;
 const SellerLayout = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>

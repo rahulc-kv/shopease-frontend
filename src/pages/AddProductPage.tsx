@@ -239,7 +239,7 @@ const AddProductPage = () => {
   }
 
   return (
-    <div className=" m-8 mt-[100px] bg-white p-8">
+    <div className=" m-8 mt-[100px] bg-white h-full p-8">
       <Modal
         open={showModal}
         aria-labelledby="modal-text"
@@ -309,7 +309,7 @@ const AddProductPage = () => {
             wrapperClass="pt-6 mr-6 w-full"
           />
           <div
-            className="p-3 bg-primary flex items-center justify-center text-white min-w-[90px] cursor-pointer h-[48px] rounded-md mr-6"
+            className="p-3 mt-[24px] bg-primary flex items-center justify-center text-white min-w-[90px] cursor-pointer h-[48px] rounded-md mr-6"
             onClick={handleEnhance}
           >
             {isLoadingEnhancer ? (

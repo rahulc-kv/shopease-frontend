@@ -23,11 +23,11 @@ const NavBar: FC<NavBarProps> = (props) => {
 
   return (
     <div
-      className="flex fixed bottom-0 top-0 flex-col justify-between w-72 h-[calc(100%-4rem)]
-       bg-white border-r-2 border-gray-100"
+      className="flex fixed bottom-0 top-0 flex-col justify-between w-60 h-screen
+      bgGrad border-r-2 border-gray-100"
     >
       <div className="flex flex-col mt-5">
-        <div className="mb-6">{title}</div>
+        <div className="mb-6 cursor-pointer" onClick={()=> navigate('/main-page')}>{title}</div>
         {navBarItems.map((navBarItem) => {
           const { icon: NavbarIcon } = navBarItem;
           return (
@@ -35,13 +35,13 @@ const NavBar: FC<NavBarProps> = (props) => {
               key={navBarItem.path}
               className={`flex overflow-hidden relative flex-row items-center py-2 px-4
               h-12 cursor-pointer ${
-                selectedTab === navBarItem.path ? "bg-primary/10" : ""
+                selectedTab === navBarItem.path ? "bg-primary/30" : ""
               }`}
               onClick={() => handleNavBarItemClick(navBarItem.path)}
             >
               {NavbarIcon && <NavbarIcon />}
               <span
-                className="overflow-hidden ml-3 text-base font-normal whitespace-nowrap
+                className="overflow-hidden ml-3 text-base font-normal text-white whitespace-nowrap
                  hover:scale-100"
               >
                 {navBarItem.cta}
