@@ -6,6 +6,7 @@ import React, { useState } from "react";
 
 import Accordian from "components/accordion/Accordian";
 import Chatbox from "components/chatbox";
+import { Stepper } from "components/stepper";
 
 const MainPage = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -47,6 +48,9 @@ const MainPage = () => {
           </div>
           <Person height={500} width={500} />
         </div>
+      </div>
+      <div>
+        <Stepper />
       </div>
       <div className="flex flex-col mb-10 items-center text-[#01859A] text-3xl font-semibold">Frequently Asked Questions</div>
       <div className="flex flex-col items-center my-10">
