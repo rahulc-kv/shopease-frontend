@@ -4,7 +4,7 @@ import TopBar from "components/top-bar/TopBar";
 import AddProductPage from "pages/AddProductPage";
 import SellerDashboard from "pages/Dashboard";
 import ProductPage from "pages/ProductPage";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 const navBarItems = [
@@ -24,16 +24,17 @@ const navBarItems = [
 
 const title = () => <SellEase height={45} width={200} />;
 const SellerLayout = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState('English'); 
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <NavBar navBarItems={navBarItems} title={title()} />
       <div className="relative left-60 w-[calc(100%-15rem)] bg-[#F8F8F8] h-screen">
-        <TopBar />
+        <TopBar selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} />
         <div className="mt-[60px]">
           <Routes>
             <Route path="/dashboard" element={<SellerDashboard />} />
             <Route path="/add-product" element={<AddProductPage />} />
-            <Route path="/products" element={<ProductPage />} />
+            <Route path="/products" element={<ProductPage selectedLanguage={selectedLanguage}/>} />
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </div>

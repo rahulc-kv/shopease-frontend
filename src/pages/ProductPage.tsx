@@ -1,14 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetProductsQuery, useLazyGetProductsQuery } from "services/api";
 
-const ProductPage = () => {
+const ProductPage = ({ selectedLanguage }) => {
     const navigate = useNavigate();
     const onClick = () => navigate(`/seller/add-product`);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [data, setData] = useState(null);
-
+    const languageNameToKey = {
+        'English': 'en',
+        'Malayalam': 'ma',
+        'Hindi': 'hi',
+    };
+    const selectedLanguageKey = languageNameToKey[selectedLanguage];
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
@@ -19,29 +24,25 @@ const ProductPage = () => {
     };
 
     const { data: productList, isSuccess } = useGetProductsQuery();
-    const [getLazyProducts, { data: productsList, isSuccess: isLazySuccess }] = useLazyGetProductsQuery();
 
-    console.log(productList)
-
-    useEffect(() => {
-        getLazyProducts();
+    const checkJson = (itemName) => {
+        console.log("here");
+        
         try {
-            const parsedData = JSON.parse(productsList);
-            setData(parsedData);
+            const parsedObj = JSON.parse(itemName.name);
+            return parsedObj;
+
         } catch (error) {
-
-            setData({});
+            return itemName.name;
         }
-    }, []);
-
-
+    }
     const dropdownStyle = {
         top: '50px',
         right: '10px'
     };
     return (
 
-        <div className="min-w-screen-xs px-4 lg:px-12" style={{ top: '50px', position: 'relative', minHeight: "" }}>
+        <div className="min-w-screen-xs px-4 lg:px-12 p-10" style={{ position: 'relative', minHeight: "" }}>
             <div className="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
                 <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4 border-b">
                     <div className="w-full md:w-1/2">
@@ -111,42 +112,46 @@ const ProductPage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {isSuccess && productList.data.data.map((item) => (
-                                <tr
-                                    key={item.id}
-                                    className="border-b"
-                                >
-                                    <th
-                                        scope="row"
-                                        className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap"
+                            {isSuccess && productList.data.data.map((item) => {
+                                const itemName = checkJson(item);
+                                return (
+
+                                    <tr
+                                        key={item.id}
+                                        className="border-b"
                                     >
-                                        {item.name}
-                                    </th>
-                                    <td className="px-4 py-3">{item.category.name}</td>
-                                    <td className="px-4 py-3">{item.retailPrice}</td>
-                                    <td className="px-4 py-3">{item.stockLimit}</td>
-                                    <td className="px-4 py-3 flex items-center relative justify-end">
-                                        <button id={`item-dropdown-button-${item.id}`}
-                                            onClick={() => toggleActionDropdown(item.id)} data-dropdown-toggle="apple-imac-27-dropdown" className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 rounded-lg" type="button">
-                                            <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                                            </svg>
-                                        </button>
-                                        {openDropdownId === item.id && (
-                                            <div id="apple-imac-27-dropdown" className="z-10 w-44 absolute bg-white rounded divide-y divide-gray-100 shadow" style={dropdownStyle}>
-                                                <ul className="py-1 text-sm text-gray-700" aria-labelledby="apple-imac-27-dropdown-button">
-                                                    <li>
-                                                        <a href="#" className="block py-2 px-4 hover:bg-gray-100">Edit</a>
-                                                    </li>
-                                                </ul>
-                                                <div className="py-1">
-                                                    <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Delete</a>
+                                        <th
+                                            scope="row"
+                                            className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap"
+                                        >
+                                            {itemName[selectedLanguageKey] === undefined ? item.name : itemName[selectedLanguageKey]}
+                                        </th>
+                                        <td className="px-4 py-3">{item.category.name}</td>
+                                        <td className="px-4 py-3">{item.retailPrice}</td>
+                                        <td className="px-4 py-3">{item.stockLimit}</td>
+                                        <td className="px-4 py-3 flex items-center relative justify-end">
+                                            <button id={`item-dropdown-button-${item.id}`}
+                                                onClick={() => toggleActionDropdown(item.id)} data-dropdown-toggle="apple-imac-27-dropdown" className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 rounded-lg" type="button">
+                                                <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+                                                </svg>
+                                            </button>
+                                            {openDropdownId === item.id && (
+                                                <div id="apple-imac-27-dropdown" className="z-10 w-44 absolute bg-white rounded divide-y divide-gray-100 shadow" style={dropdownStyle}>
+                                                    <ul className="py-1 text-sm text-gray-700" aria-labelledby="apple-imac-27-dropdown-button">
+                                                        <li>
+                                                            <a href="#" className="block py-2 px-4 hover:bg-gray-100">Edit</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div className="py-1">
+                                                        <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Delete</a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
+                                            )}
+                                        </td>
+                                    </tr>
+                                )
+                            })}
                         </tbody>
                     </table>
                 </div>
