@@ -10,3 +10,7 @@ export const FILE_UPLOAD_STATUS = {
   failed: "failed",
   success: "success",
 };
+
+export const CSV_FORMAT = {
+  "text/csv": [".csv"]
+}
