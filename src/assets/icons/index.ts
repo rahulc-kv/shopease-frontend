@@ -25,8 +25,13 @@ import { ReactComponent as Email } from "./email.svg";
 import { ReactComponent as Message } from "./message.svg";
 import { ReactComponent as Card } from "./card.svg";
 import { ReactComponent as FileIcon } from "./fileIcon.svg";
-import { ReactComponent as Success} from "./success.svg"
+import { ReactComponent as Success} from "./success.svg";
+import { ReactComponent as Truck} from "./truck.svg";
+import { ReactComponent as Register} from "./register.svg";
+import { ReactComponent as Rupee} from "./rupee.svg";
+import { ReactComponent as Group} from "./group.svg"
 import { ReactComponent as Verified} from "./verified.svg"
+
 
 
 export {
@@ -57,5 +62,9 @@ export {
   Delete,
   Refresh,
   Success,
+  Truck,
+  Rupee,
+  Register,
+  Group,
   Verified
 };
