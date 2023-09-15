@@ -5,6 +5,7 @@ import { accordion } from "components/accordion/constants";
 import React, { useState } from "react";
 
 import Accordian from "components/accordion/Accordian";
+import Chatbox from "components/chatbox";
 import { Stepper } from "components/stepper";
 
 const MainPage = () => {
@@ -62,6 +63,7 @@ const MainPage = () => {
           ))}
         </div>
       </div>
+      <Chatbox/>
     </div>
   );
 };
