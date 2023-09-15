@@ -1,4 +1,4 @@
-import { AmountCredit, Dispatch, Expert, RegisterProduct, SellEase } from "assets/icons";
+import { AmountCredit, Dispatch, Expert, RegisterProduct } from "assets/icons";
 import React from "react";
 import { StepListing } from "./stepListing";
 
@@ -63,7 +63,7 @@ export const Stepper: React.FC = () => {
         </div>
       </div>
       <div className="flex">
-        <div className="flex items-start h-[350px] justify-center w-1/2">
+        <div className="flex items-start h-[200px] justify-center w-1/2">
           <AmountCredit className="w-[150px]  " />
         </div>
         <div className="flex flex-col items-center">
