@@ -13,7 +13,7 @@ const NavBar: FC<NavBarProps> = (props) => {
 
   useEffect(() => {
     const currentPath = location.pathname;
-    const firstPathSegment = currentPath.split("/")[1];
+    const firstPathSegment = currentPath.split("/")[2];
     setSelectedTab(`/${firstPathSegment}`);
   }, [location.pathname]);
 
