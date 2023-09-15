@@ -12,8 +12,7 @@ import { FormFieldValues, TranslateFormFieldValues } from "./types";
 
 import { Verified } from "assets/icons";
 
-import { usePostBulkUploadMutation } from "services/api";
-import { useTranslateMutation } from "services/api";
+import { useDescriptionEnhancementMutation, useTranslateMutation,  usePostBulkUploadMutation  } from "services/api";
 import { TRANSLATION } from "constants/common";
 
 const AddProductPage = () => {
@@ -63,6 +62,7 @@ const AddProductPage = () => {
   });
 
   const [translate, { isLoading: isLoadingTranslate }] = useTranslateMutation();
+  const [enhanceDescription, { isLoading: isLoadingEnhancer }] = useDescriptionEnhancementMutation();
 
   const {
     control: translateControl,
@@ -180,6 +180,13 @@ const AddProductPage = () => {
   };
 
 
+  const handleEnhance = async () => {
+    const response = await enhanceDescription({ name: getValues().description }).unwrap();
+    if (response && response.status === 'ok' && response.result?.text) {
+      setValue('description', response.result.text)
+    }
+  }
+
   return (
     <div className=" m-8 mt-[100px] bg-white p-8">
       <Modal
@@ -239,7 +246,7 @@ const AddProductPage = () => {
             wrapperClass="pt-6 w-full"
           />
         </div>
-        <div className="flex flex-row w-[68%]">
+        <div className="flex flex-row w-[68%] items-center">
           <CustomTextField
             name="description"
             placeholder={"Description"}
@@ -247,9 +254,15 @@ const AddProductPage = () => {
             errors={errors}
             multiline
             rows={3}
-            onClickTextField={() => { setShowModal(true) }}
+            // onClickTextField={() => { setShowModal(true) }}
             wrapperClass="pt-6 mr-6 w-full"
           />
+          <div
+            className="p-3 bg-primary flex items-center justify-center text-white min-w-[90px] cursor-pointer h-[48px] rounded-md mr-6"
+            onClick={handleEnhance}
+          >
+            {isLoadingEnhancer ? <CircularProgress size={20}  sx={{color: 'white'}}/> : 'Enhance'}
+          </div>
         </div>
         <div className="flex flex-row w-[100%]">
           <CustomTextField
