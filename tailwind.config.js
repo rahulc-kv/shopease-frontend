@@ -6,7 +6,11 @@ module.exports = {
     extend: {
       colors: {
         toryBlue: '#1746A2'
-      }
+      },
+      fontFamily: {
+        fingerPaint: ['Finger Paint'],
+        sourceSans3: ['Source Sans 3']
+      },
     },
   },
   variants: {
