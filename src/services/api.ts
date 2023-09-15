@@ -1,4 +1,4 @@
-import baseApi from './index';
+import baseApi from "./index";
 
 const getProductsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -28,9 +28,16 @@ const getProductsApi = baseApi.injectEndpoints({
         method: 'POST',
         body: payload
       }),
+    }),
+    addPayload: builder.mutation<any, any>({
+      query: (payload) => ({
+        url: '/products',
+        method: "POST",
+        body:payload
+      }),
     })
   })
 })
 export default getProductsApi;
 
-export const { useGetProductsQuery, useTranslateMutation, useDescriptionEnhancementMutation } = getProductsApi;
+export const { useGetProductsQuery,useAddPayloadMutation, useTranslateMutation, useDescriptionEnhancementMutation } = getProductsApi;

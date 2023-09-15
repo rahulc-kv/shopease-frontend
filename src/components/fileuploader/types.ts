@@ -7,6 +7,7 @@ export type FileUploaderPropsType = {
   name: string;
   enableCrop: boolean;
   sizeInMb: number;
+  size?:string;
   supportedFormats?: Accept;
   fileUploadSuccessHandler: (file: File, path: string) => void;
   deleteFileHandler: () => void;

@@ -15,6 +15,7 @@ const FileUploader: FC<FileUploaderPropsType> = (props) => {
     name,
     enableCrop,
     sizeInMb,
+    size = "small",
     supportedFormats = SUPPORTED_FILE_FORMATS,
     fileUploadSuccessHandler,
     deleteFileHandler,
@@ -49,14 +50,16 @@ const FileUploader: FC<FileUploaderPropsType> = (props) => {
     setIsModalOpen(false);
     setUploadedFile(file);
     setStatus(FILE_UPLOAD_STATUS.uploading);
-   
-        setStatus(FILE_UPLOAD_STATUS.success);
-        fileUploadSuccessHandler(file, file.name);
-    };
+
+    setStatus(FILE_UPLOAD_STATUS.success);
+    fileUploadSuccessHandler(file, file.name);
+  };
 
   const renderContent = (hasError: boolean = false) => (
     <div
-      className={`flex justify-between items-center p-5 w-full min-h-[200px] rounded-lg border 
+      className={`flex justify-between items-center p-5 w-full ${
+        size === "large" ? "min-h-[200px]" : "min-h-[93px]"
+      } rounded-lg border 
         ${
           hasError && status === FILE_UPLOAD_STATUS.failed
             ? "border-red"
@@ -147,4 +150,3 @@ const FileUploader: FC<FileUploaderPropsType> = (props) => {
 };
 
 export default FileUploader;
-
