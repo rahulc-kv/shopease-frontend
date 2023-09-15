@@ -5,7 +5,7 @@ import React from "react";
 
 const SellerDashboard: React.FC = () => {
   return (
-    <div className="pl-64 p-10 bg-[#F8F8F8] h-screen">
+    <div className="p-10 bg-[#F8F8F8] h-screen">
       <div className="flex items-center justify-between mb-12">
         <div className="flex gap-3">
           <EmptyProfile className="w-[50px] h-[50px]" />
