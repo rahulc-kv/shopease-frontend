@@ -56,7 +56,7 @@ const FileUploader: FC<FileUploaderPropsType> = (props) => {
 
   const renderContent = (hasError: boolean = false) => (
     <div
-      className={`flex justify-between items-center p-5 w-full min-h-[93px] rounded-lg border 
+      className={`flex justify-between items-center p-5 w-full min-h-[200px] rounded-lg border 
         ${
           hasError && status === FILE_UPLOAD_STATUS.failed
             ? "border-red"

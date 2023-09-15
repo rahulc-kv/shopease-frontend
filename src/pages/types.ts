@@ -7,10 +7,10 @@ export type FormFieldValues = {
   description: string;
   howToUse: string;
   ingredients: string;
-  productImages: ProductImageType;
+  productImages: Array<ProductImageType>;
   categoryId: string;
   brandId: string;
-  isArchived: string;
+  isArchived: boolean;
   itemSold: string;
   height: string;
   width: string;
