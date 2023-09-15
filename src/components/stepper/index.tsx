@@ -16,10 +16,10 @@ export const Stepper: React.FC = () => {
           ]}
         />
         <div className="flex flex-col items-center">
-          <div className="w-16 h-16 text-PRIMARY rounded-full flex items-center justify-center border-2 border-PRIMARY">
+          <div className="w-16 h-16 text-primary rounded-full flex items-center justify-center border-2 border-primary">
             1
           </div>
-          <div className="w-0.5 h-full bg-PRIMARY"></div>
+          <div className="w-0.5 h-full bg-primary"></div>
         </div>
         <div className="flex items-center justify-center w-1/2">
           <SellEase className="w-20" />
@@ -30,10 +30,10 @@ export const Stepper: React.FC = () => {
           <SellEase className="w-20" />
         </div>
         <div className="flex flex-col items-center">
-          <div className="w-16 h-16 text-PRIMARY rounded-full flex items-center justify-center border-2 border-PRIMARY">
+          <div className="w-16 h-16 text-primary rounded-full flex items-center justify-center border-2 border-primary">
             2
           </div>
-          <div className="w-0.5 h-full bg-PRIMARY"></div>
+          <div className="w-0.5 h-full bg-primary"></div>
         </div>
         <StepListing
           title="Step 2: Register yourself and List your products"
@@ -52,10 +52,10 @@ export const Stepper: React.FC = () => {
           ]}
         />
         <div className="flex flex-col items-center">
-          <div className="w-16 h-16 text-PRIMARY rounded-full flex items-center justify-center border-2 border-PRIMARY">
+          <div className="w-16 h-16 text-primary rounded-full flex items-center justify-center border-2 border-primary">
             3
           </div>
-          <div className="w-0.5 h-full bg-PRIMARY"></div>
+          <div className="w-0.5 h-full bg-primary"></div>
         </div>
         <div className="flex items-center justify-center w-1/2">
           <SellEase className="w-20" />
@@ -66,7 +66,7 @@ export const Stepper: React.FC = () => {
           <SellEase className="w-20" />
         </div>
         <div className="flex flex-col items-center">
-          <div className="w-16 h-16 text-PRIMARY rounded-full flex items-center justify-center border-2 border-PRIMARY">
+          <div className="w-16 h-16 text-primary rounded-full flex items-center justify-center border-2 border-primary">
             4
           </div>
         </div>
