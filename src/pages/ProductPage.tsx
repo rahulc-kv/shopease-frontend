@@ -99,7 +99,7 @@ const ProductPage = () => {
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left text-gray-500">
-                        <thead className="text-xs text-gray-700 uppercase bg-white  border-gray-700">
+                        <thead className="text- text-gray-700 uppercase bg-white  border-gray-700">
                             <tr>
                                 <th scope="col" className="px-4 py-3">Product name</th>
                                 <th scope="col" className="px-4 py-3">Category</th>
