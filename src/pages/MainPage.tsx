@@ -1,5 +1,5 @@
 import { NoCost, ONDCNetwork, Person, SellerSite } from "assets/icons";
-import { Cards, Header } from "components";
+import { Cards, Footer, Header } from "components";
 import { TypeAnimation } from "react-type-animation";
 import { accordion } from "components/accordion/constants";
 import React, { useState } from "react";
@@ -99,6 +99,7 @@ const MainPage = () => {
             />
           ))}
         </div>
+      <Footer/>
       </div>
       <Chatbox />
     </div>
