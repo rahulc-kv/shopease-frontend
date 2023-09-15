@@ -1,6 +1,7 @@
 import NavBar from "components/nav-bar/NavBar";
 import AddProductPage from "pages/AddProductPage";
 import SellerDashboard from "pages/Dashboard";
+import ProductPage from "pages/ProductPage";
 import { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
@@ -13,6 +14,10 @@ const navBarItems = [
     cta: "Add product",
     path: "/seller/add-product",
   },
+  {
+    cta: "Products",
+    path: "/seller/products",
+  },
 ];
 
 const SellerLayout = () => {
@@ -23,6 +28,7 @@ const SellerLayout = () => {
       <Routes>
         <Route path="/dashboard" element={<SellerDashboard />} />
         <Route path="/add-product" element={<AddProductPage />} />
+        <Route path="/products" element={<ProductPage />} />
         <Route
           path="*"
           element={<Navigate to="/dashboard" replace />}
