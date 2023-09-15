@@ -1,8 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React from "react";
 
-import { Button } from "components";
-
 export const Main: React.FC = () => {
   return (
     <div
@@ -26,7 +24,6 @@ export const Main: React.FC = () => {
           href="https://pankod.github.io/superplate/"
           target="_blank"
         >
-          <Button>Docs</Button>
         </a>
       </div>
       <div

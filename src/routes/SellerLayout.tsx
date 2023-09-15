@@ -19,6 +19,7 @@ const SellerLayout = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <NavBar navBarItems={navBarItems} />
+      <div className="relative top-10 left-60 w-[calc(100%-15rem)]">
       <Routes>
         <Route path="/dashboard" element={<SellerDashboard />} />
         <Route path="/add-product" element={<AddProductPage />} />
@@ -27,6 +28,7 @@ const SellerLayout = () => {
           element={<Navigate to="/dashboard" replace />}
         />
       </Routes>
+      </div>
     </Suspense>
   );
 };

@@ -1,5 +1,7 @@
 import { ReactComponent as SellEase } from "./sellEase.svg";
 import { ReactComponent as Person } from "./person.svg";
+import { ReactComponent as Delete } from "./delete.svg";
+import { ReactComponent as Refresh } from "./refresh.svg";
 import { ReactComponent as ChevronDown } from "./chevronDown.svg";
 import { ReactComponent as Send } from "./send.svg";
 import { ReactComponent as Chat } from "./chat.svg";
@@ -22,6 +24,8 @@ import { ReactComponent as Config } from "./config.svg";
 import { ReactComponent as Email } from "./email.svg";
 import { ReactComponent as Message } from "./message.svg";
 import { ReactComponent as Card } from "./card.svg";
+import { ReactComponent as FileIcon } from "./fileIcon.svg";
+import { ReactComponent as Success} from "./success.svg"
 
 export {
   SellEase,
@@ -46,5 +50,9 @@ export {
   Config,
   Email,
   Message,
-  Card
+  Card,
+  FileIcon,
+  Delete,
+  Refresh,
+  Success
 };
