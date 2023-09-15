@@ -136,14 +136,12 @@ const AddProductPage = () => {
         }
       }
     }
-    console.log(result);
     const mergedObject = { ...initialObject, ...result };
 
     return JSON.stringify(mergedObject);
   };
 
   const handleData = (values: FormFieldValues) => {
-    console.log(values);
     addProduct({
       brandId: values.brandId,
       categoryId: values.categoryId,
