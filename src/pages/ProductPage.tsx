@@ -15,6 +15,7 @@ const ProductPage = () => {
     };
 
     const { data: productList, isSuccess } = useGetProductsQuery();
+    console.log(productList)
 
     const dropdownStyle = {
         top: '50px',
@@ -103,7 +104,7 @@ const ProductPage = () => {
                                             >
                                                 {item.name}
                                             </th>
-                                            <td className="px-4 py-3">{item.category}</td>
+                                            <td className="px-4 py-3">{item.category.name}</td>
                                             <td className="px-4 py-3">{item.retailPrice}</td>
                                             <td className="px-4 py-3">{item.stockLimit}</td>
                                             <td className="px-4 py-3 flex items-center relative justify-end">
