@@ -52,7 +52,7 @@ const MainPage = () => {
               sequence={[
                 "One India One Market", // Types 'One'
                 1000, // Waits 1s
-                "Your Marketplace, Your Rules", // Deletes 'One' and types 'Two'
+                "Your Store, Your Rules", // Deletes 'One' and types 'Two'
                 2000, // Waits 2s
                 "Unlock Your Selling Potential With SellEase", // Types 'Three' without deleting 'Two'
                 () => {

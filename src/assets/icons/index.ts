@@ -7,6 +7,10 @@ import { ReactComponent as NoCost } from "./noconst.svg";
 import { ReactComponent as ONDCNetwork } from "./ondcNetwork.svg";
 import { ReactComponent as SellerSite } from "./sellerSite.svg";
 import { ReactComponent as EmptyProfile } from "./empty_photo.svg";
+import { ReactComponent as RegisterProduct } from "./registerProduct.svg";
+import { ReactComponent as Dispatch } from "./dispatch.svg";
+import { ReactComponent as Expert } from "./expert.svg";
+import { ReactComponent as AmountCredit } from "./amountCredit.svg";
 
 export {
   SellEase,
@@ -18,4 +22,8 @@ export {
   ONDCNetwork,
   SellerSite,
   EmptyProfile,
+  RegisterProduct,
+  Dispatch,
+  Expert,
+  AmountCredit
 };
