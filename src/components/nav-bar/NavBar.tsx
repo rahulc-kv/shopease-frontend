@@ -23,7 +23,7 @@ const NavBar: FC<NavBarProps> = (props) => {
 
   return (
     <div
-      className="flex fixed bottom-0 flex-col justify-between w-60 h-[calc(100%-4rem)]
+      className="flex fixed bottom-0 top-0 flex-col justify-between w-60 h-[calc(100%-4rem)]
        bg-white border-r-2 border-gray-100"
     >
       <div className="flex flex-col mt-5">
