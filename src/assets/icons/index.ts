@@ -30,6 +30,9 @@ import { ReactComponent as Truck} from "./truck.svg";
 import { ReactComponent as Register} from "./register.svg";
 import { ReactComponent as Rupee} from "./rupee.svg";
 import { ReactComponent as Group} from "./group.svg"
+import { ReactComponent as Verified} from "./verified.svg"
+
+
 
 export {
   SellEase,
@@ -62,5 +65,6 @@ export {
   Truck,
   Rupee,
   Register,
-  Group
+  Group,
+  Verified
 };

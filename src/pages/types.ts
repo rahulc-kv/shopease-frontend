@@ -7,15 +7,22 @@ export type FormFieldValues = {
   description: string;
   howToUse: string;
   ingredients: string;
-  productImages: ProductImageType;
+  productImages: Array<ProductImageType>;
   categoryId: string;
   brandId: string;
-  isArchived: string;
+  isArchived: boolean;
   itemSold: string;
   height: string;
   width: string;
   length: string;
   weight: string;
+};
+
+export type TranslateFormFieldValues = {
+  name: string;
+  description: string;
+  howToUse: string;
+  ingredients: string;
 };
 
 export type ProductImageType = {
