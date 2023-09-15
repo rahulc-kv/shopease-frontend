@@ -32,9 +32,9 @@ const FileDropZone: FC<FileDropZoneProps> = (props) => {
   return (
     <div
       {...getRootProps()}
-      className={`flex justify-start items-center p-5 w-full min-h-[93px] rounded-lg border
+      className={`flex justify-start items-center p-5 w-full min-h-[200px] rounded-lg border
          ${
-           hasError ? "border-red" : "border-gray-200"
+           hasError ? "border-red" : "border-gray-400"
          } border-dashed cursor-pointer 
          ${isDragActive ? "bg-gray-300" : "bg-white"}`}
     >
