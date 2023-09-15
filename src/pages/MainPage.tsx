@@ -5,6 +5,7 @@ import { accordion } from "components/accordion/constants";
 import React, { useState } from "react";
 
 import Accordian from "components/accordion/Accordian";
+import Chatbox from "components/chatbox";
 
 const MainPage = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -58,6 +59,7 @@ const MainPage = () => {
           />
         ))}
       </div>
+      <Chatbox/>
     </div>
   );
 };
