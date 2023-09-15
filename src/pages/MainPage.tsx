@@ -1,4 +1,11 @@
-import { NoCost, ONDCNetwork, Person, SellerSite } from "assets/icons";
+import {
+  NoCost, ONDCNetwork, Person, SellerSite,
+  Logistics,
+  Config,
+  Email,
+  Message,
+  Card
+} from "assets/icons";
 import { Cards, Footer, Header } from "components";
 import { TypeAnimation } from "react-type-animation";
 import { accordion } from "components/accordion/constants";
@@ -7,6 +14,7 @@ import React, { useState } from "react";
 import Accordian from "components/accordion/Accordian";
 import Chatbox from "components/chatbox";
 import { Stepper } from "components/stepper";
+import { FeatureCard } from "components/feature-card/FeatureCard";
 
 const features = [
   {
@@ -25,6 +33,37 @@ const features = [
     icon: <SellerSite height={60} width={60} />
   }
 ]
+
+const integrationFeature1 = [
+  {
+    head: "Integrated Logistics",
+    body: "Easily ship your products with trusted logistics providers of the open network. Reach 28000+ PIN codes across India with built-in integrations with multiple logistics providers. ",
+    icon: <Logistics height={60} width={60} />
+  },
+  {
+    head: "Payment Gateway",
+    body: "Make your checkouts frictionless and fast with multiple payment gateways and other digital payment solutions.",
+    icon: <Card height={60} width={60} />
+  },
+  {
+    head: "SMS Gateways",
+    body: "Keep your customers informed about their orders status, delivery status and mopre via SMS by integrating with your preferred SMS gateways.",
+    icon: <Message height={60} width={60} />
+  }
+]
+
+const integrationFeature2 = [
+  {
+    head: "Mail Gateways",
+    body: "Stay connected with your customers by integrating your favourite email gateways to send bulk messages, promotional deals and order status etc.",
+    icon: <Email height={60} width={60} />
+  },
+  {
+    head: "Zapier Integrations",
+    body: "Access thousands of third-party apps through the Zapier app to make your online journey hassle-free.",
+    icon: <Config height={60} width={60} />
+  }
+];
 
 const MainPage = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -52,7 +91,7 @@ const MainPage = () => {
               sequence={[
                 "One India One Market", // Types 'One'
                 1000, // Waits 1s
-                "Your Marketplace, Your Rules", // Deletes 'One' and types 'Two'
+                "Your Store, Your Rules", // Deletes 'One' and types 'Two'
                 2000, // Waits 2s
                 "Unlock Your Selling Potential With SellEase", // Types 'Three' without deleting 'Two'
                 () => {
@@ -85,9 +124,41 @@ const MainPage = () => {
           </div>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-14">
           <Stepper />
         </div>
+
+        <div className="flex flex-row items-center justify-center mb-20 bg-[#01869a20] pt-5 pb-3">
+          <div className="w-[440px]">
+            <div className="text-[34px] text-[#01859a]">
+              Integrations that pack a punch
+            </div>
+            <div className="text-base text-[#6b7280]">
+              Build extraordinary Ecommerce solutions with seamless integrations
+            </div>
+          </div>
+          <div className="flex flex-row items-center">
+            <div>
+              {integrationFeature1.map((feature, index) => (
+                <div key={index} className="mb-3">
+                  <FeatureCard
+                    feature={feature}
+                  />
+                </div>
+              ))}
+            </div>
+            <div>
+              {integrationFeature2.map((feature, index) => (
+                <div key={index} className="mb-3">
+                  <FeatureCard
+                    feature={feature}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <div className="flex flex-col mb-10 items-center text-[#01859A] text-3xl font-semibold">Frequently Asked Questions</div>
         <div className="flex flex-col items-center my-10">
           {accordion.map((faq, index) => (
@@ -99,7 +170,7 @@ const MainPage = () => {
             />
           ))}
         </div>
-      <Footer/>
+        <Footer />
       </div>
       <Chatbox />
     </div>

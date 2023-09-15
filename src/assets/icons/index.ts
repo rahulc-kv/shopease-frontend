@@ -13,6 +13,15 @@ import { ReactComponent as Customers } from "./customers.svg";
 import { ReactComponent as Earnings } from "./earnings.svg";
 import { ReactComponent as Orders } from "./orders.svg";
 
+import { ReactComponent as RegisterProduct } from "./registerProduct.svg";
+import { ReactComponent as Dispatch } from "./dispatch.svg";
+import { ReactComponent as Expert } from "./expert.svg";
+import { ReactComponent as AmountCredit } from "./amountCredit.svg";
+import { ReactComponent as Logistics } from "./logistics.svg";
+import { ReactComponent as Config } from "./config.svg";
+import { ReactComponent as Email } from "./email.svg";
+import { ReactComponent as Message } from "./message.svg";
+import { ReactComponent as Card } from "./card.svg";
 
 export {
   SellEase,
@@ -28,5 +37,14 @@ export {
   RedArrow,
   Customers,
   Earnings,
-  Orders
+  Orders,
+  RegisterProduct,
+  Dispatch,
+  Expert,
+  AmountCredit,
+  Logistics,
+  Config,
+  Email,
+  Message,
+  Card
 };
