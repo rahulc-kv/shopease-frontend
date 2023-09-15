@@ -1,4 +1,4 @@
-import { AmountCredit, Dispatch, Expert, RegisterProduct } from "assets/icons";
+import { AmountCredit, Dispatch, Expert, RegisterProduct,Truck,Group,Register,Rupee } from "assets/icons";
 import React from "react";
 import { StepListing } from "./stepListing";
 
@@ -17,7 +17,7 @@ export const Stepper: React.FC = () => {
         />
         <div className="flex flex-col items-center">
           <div className="w-16 h-16 text-primary rounded-full flex items-center justify-center border-2 border-primary">
-            1
+            <Register />
           </div>
           <div className="w-0.5 h-full bg-primary"></div>
         </div>
@@ -31,7 +31,7 @@ export const Stepper: React.FC = () => {
         </div>
         <div className="flex flex-col items-center">
           <div className="w-16 h-16 text-primary rounded-full flex items-center justify-center border-2 border-primary">
-            2
+            <Group />
           </div>
           <div className="w-0.5 h-full bg-primary"></div>
         </div>
@@ -54,7 +54,7 @@ export const Stepper: React.FC = () => {
         />
         <div className="flex flex-col items-center">
           <div className="w-16 h-16 text-primary rounded-full flex items-center justify-center border-2 border-primary">
-            3
+          <Truck  />
           </div>
           <div className="w-0.5 h-full bg-primary"></div>
         </div>
@@ -68,7 +68,7 @@ export const Stepper: React.FC = () => {
         </div>
         <div className="flex flex-col items-center">
           <div className="w-16 h-16 text-primary rounded-full flex items-center justify-center border-2 border-primary">
-            4
+            <Rupee />
           </div>
         </div>
         <StepListing
