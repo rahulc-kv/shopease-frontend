@@ -85,7 +85,7 @@ const MainPage = () => {
             Start selling your products on SellEase <br /> with zero selling
             cost
             <p className="text-base font-sourceSans3 py-5">
-              Become a seller and gow your business in India
+              Become a seller and grow your business in India
             </p>
             <TypeAnimation
               sequence={[
