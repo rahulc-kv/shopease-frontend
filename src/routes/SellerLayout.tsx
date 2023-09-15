@@ -20,6 +20,30 @@ const navBarItems = [
     cta: "Products",
     path: "/seller/products",
   },
+  {
+    cta: "Customers",
+    path: "/seller/products1",
+  },
+  {
+    cta: "Orders",
+    path: "/seller/products2",
+  },
+  {
+    cta: "Inventory",
+    path: "/seller/products3",
+  },
+  {
+    cta: "Invoice",
+    path: "/seller/products4",
+  },
+  {
+    cta: "Account Settings",
+    path: "/seller/products5",
+  },
+  {
+    cta: "Settlements",
+    path: "/seller/products6",
+  },
 ];
 
 const title = () => <SellEase height={45} width={200} />;
