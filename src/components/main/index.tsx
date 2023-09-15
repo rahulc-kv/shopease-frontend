@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React from "react";
 
 import { Button } from "components";
@@ -71,6 +72,7 @@ export const Main: React.FC = () => {
         <a href="https://s.refine.dev/superplate" target="_blank">
           <img
             width="100%"
+            alt=""
             src="https://cdn.discordapp.com/attachments/991655841793052723/1042775236954820658/Group_572_1.png"
           />
         </a>
