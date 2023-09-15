@@ -1,5 +1,6 @@
 import { SellEase } from "assets/icons";
 import NavBar from "components/nav-bar/NavBar";
+import TopBar from "components/top-bar/TopBar";
 import AddProductPage from "pages/AddProductPage";
 import SellerDashboard from "pages/Dashboard";
 import ProductPage from "pages/ProductPage";
@@ -27,12 +28,15 @@ const SellerLayout = () => {
     <Suspense fallback={<div>Loading...</div>}>
       <NavBar navBarItems={navBarItems} title={title()} />
       <div className="relative left-60 w-[calc(100%-15rem)] bg-[#F8F8F8] h-screen">
-        <Routes>
-          <Route path="/dashboard" element={<SellerDashboard />} />
-          <Route path="/add-product" element={<AddProductPage />} />
-          <Route path="/products" element={<ProductPage />} />
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
-        </Routes>
+        <TopBar />
+        <div className="mt-[60px]">
+          <Routes>
+            <Route path="/dashboard" element={<SellerDashboard />} />
+            <Route path="/add-product" element={<AddProductPage />} />
+            <Route path="/products" element={<ProductPage />} />
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          </Routes>
+        </div>
       </div>
     </Suspense>
   );

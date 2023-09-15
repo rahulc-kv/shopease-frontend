@@ -9,6 +9,13 @@ const productsApi = baseApi.injectEndpoints({
       }),
       providesTags: ["products.list"],
     }),
+    translate: builder.mutation<any,any>({
+    query: (payload) => ({
+      url: 'http://192.168.4.215:9000/sellease-ai/prod/translate',
+      method: 'POST',
+      body: payload
+    }),
+  })
   }),
 });
 const uploadsApi = baseApi2.injectEndpoints({
@@ -32,4 +39,5 @@ const uploadsApi = baseApi2.injectEndpoints({
 
 export const { usePostBulkUploadMutation } = uploadsApi;
 
-export const { useLazyGetProductsQuery, useGetProductsQuery } = productsApi;
+export const { useLazyGetProductsQuery, useGetProductsQuery, useTranslateMutation } = productsApi;
+

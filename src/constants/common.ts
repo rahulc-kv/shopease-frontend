@@ -7,3 +7,9 @@ export const COLORS = {
     warningRed: '#D32F2F',
     alabaster: '#FAFAFA'
 }
+
+export const TRANSLATION = {
+    malayalam: 'ml',
+    tamil: 'ta',
+    hindi: 'hi'
+}
