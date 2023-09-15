@@ -6,7 +6,7 @@ module.exports = {
     extend: {
       colors: {
         toryBlue: '#1746A2',
-        PRIMARY: '#01859A'
+        primary: '#01859A'
       },
       fontFamily: {
         fingerPaint: ['Finger Paint'],
