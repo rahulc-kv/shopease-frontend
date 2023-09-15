@@ -7,6 +7,12 @@ import { ReactComponent as NoCost } from "./noconst.svg";
 import { ReactComponent as ONDCNetwork } from "./ondcNetwork.svg";
 import { ReactComponent as SellerSite } from "./sellerSite.svg";
 import { ReactComponent as EmptyProfile } from "./empty_photo.svg";
+import { ReactComponent as GreenArrow } from "./green-arrow.svg";
+import { ReactComponent as RedArrow } from "./red-arrow.svg";
+import { ReactComponent as Customers } from "./customers.svg";
+import { ReactComponent as Earnings } from "./earnings.svg";
+import { ReactComponent as Orders } from "./orders.svg";
+
 import { ReactComponent as RegisterProduct } from "./registerProduct.svg";
 import { ReactComponent as Dispatch } from "./dispatch.svg";
 import { ReactComponent as Expert } from "./expert.svg";
@@ -27,6 +33,11 @@ export {
   ONDCNetwork,
   SellerSite,
   EmptyProfile,
+  GreenArrow,
+  RedArrow,
+  Customers,
+  Earnings,
+  Orders,
   RegisterProduct,
   Dispatch,
   Expert,
