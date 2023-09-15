@@ -31,6 +31,8 @@ import { ReactComponent as Register} from "./register.svg";
 import { ReactComponent as Rupee} from "./rupee.svg";
 import { ReactComponent as Group} from "./group.svg"
 import { ReactComponent as Verified} from "./verified.svg"
+import { ReactComponent as Globe} from "./globe.svg"
+import { ReactComponent as DownArrow} from "./downArrow.svg"
 
 
 
@@ -66,5 +68,7 @@ export {
   Rupee,
   Register,
   Group,
-  Verified
+  Verified,
+  Globe,
+  DownArrow
 };

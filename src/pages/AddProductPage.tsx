@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Modal } from "@mui/material";
+import { Box, CircularProgress, Modal } from "@mui/material";
 import CustomSwitch from "components/custom-switch/CustomSwitch";
 import { CSV_FORMAT } from "components/filedropzone/constants";
 import FileUploader from "components/fileuploader/FileUploader";
@@ -11,6 +11,8 @@ import { useForm } from "react-hook-form";
 import { FormFieldValues, TranslateFormFieldValues } from "./types";
 
 import { Verified } from "assets/icons";
+import { useTranslateMutation } from "services/api";
+import { TRANSLATION } from "constants/common";
 
 const AddProductPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,6 +34,7 @@ const AddProductPage = () => {
     control,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<FormFieldValues>({
     defaultValues: {
@@ -55,6 +58,8 @@ const AddProductPage = () => {
     },
   });
 
+  const [translate, { isLoading: isLoadingTranslate }] = useTranslateMutation();
+
   const {
     control: translateControl,
     setValue: setTranslateValue,
@@ -76,19 +81,33 @@ const AddProductPage = () => {
 
   useEffect(() => {
     if (verifyTranslate) {
-      // call api;
-      const response = {
-        name: 'Name',
-        description: "desc",
-        ingredients: "sdjfhdgsf",
-        howToUse: "sdsfsdf"
+      const values = getValues();
+      const api = async () => {
+        const response = await translate({
+          name: values.name,
+          description: values.description,
+          ingredients: values.ingredients,
+          how_to_use: values.howToUse,
+          language: TRANSLATION[verifyTranslate]
+        }).unwrap()
+        // call api;
+        // const response = {
+        //   name: 'Name',
+        //   description: "desc",
+        //   ingredients: "sdjfhdgsf",
+        //   howToUse: "sdsfsdf"
+        // }
+        if (response && response.status === "ok") {
+          setTranslateValue('name', response.result.name);
+          setTranslateValue('description', response.result.description);
+          setTranslateValue('howToUse', response.result.how_to_use);
+          setTranslateValue('ingredients', response.result.ingredients);
+        }
       }
-      setTranslateValue('name', response.name);
-      setTranslateValue('description', response.description);
-      setTranslateValue('howToUse', response.howToUse);
-      setTranslateValue('ingredients', response.ingredients);
+      api();
     }
   }, [verifyTranslate]);
+
 
   const handleData = (values: FormFieldValues) => {
     console.log(values);
@@ -153,7 +172,7 @@ const AddProductPage = () => {
 
 
   return (
-    <div className="m-8 bg-white p-8">
+    <div className=" m-8 mt-[100px] bg-white p-8">
       <Modal
         open={showModal}
         aria-labelledby="modal-text"
@@ -462,50 +481,59 @@ const AddProductPage = () => {
             <div className="w-full text-xl font-workSans text-[#212529]">
               Verify Transalation in {verifyTranslate}
             </div>
-            <div className="w-full">
-              <CustomTextField
-                name="name"
-                placeholder={"Name"}
-                control={translateControl}
-                errors={translateErrors}
-                wrapperClass="pt-6 mr-6 w-full"
-              />
-              <CustomTextField
-                name="description"
-                placeholder={"Description"}
-                control={translateControl}
-                errors={translateErrors}
-                multiline
-                rows={3}
-                wrapperClass="pt-6 mr-6 w-full"
-              />
-              <CustomTextField
-                name="ingredients"
-                placeholder={"Ingredients"}
-                control={translateControl}
-                errors={translateErrors}
-                wrapperClass="pt-6 mr-6 w-full"
-              />
-              <CustomTextField
-                name="howToUse"
-                placeholder={"How to use"}
-                control={translateControl}
-                errors={translateErrors}
-                wrapperClass="pt-6 mr-6 w-full"
-              />
-            </div>
-            <div className=" flex w-full justify-end mt-10">
-              <div className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer mr-4"
-                onClick={() => setVerifyTransalate('')}>
-                Back
-              </div>
-              <div className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer"
-                onClick={
-                  translateSubmitHandler()
-                }>
-                Confirm
-              </div>
-            </div>
+            {!isLoadingTranslate ?
+              (
+                <div className="flex items-center justify-center w-full h-full">
+                  <CircularProgress />
+                </div>
+              ) : (
+                <>
+                  <div className="w-full">
+                    <CustomTextField
+                      name="name"
+                      placeholder={"Name"}
+                      control={translateControl}
+                      errors={translateErrors}
+                      wrapperClass="pt-6 mr-6 w-full"
+                    />
+                    <CustomTextField
+                      name="description"
+                      placeholder={"Description"}
+                      control={translateControl}
+                      errors={translateErrors}
+                      multiline
+                      rows={3}
+                      wrapperClass="pt-6 mr-6 w-full"
+                    />
+                    <CustomTextField
+                      name="ingredients"
+                      placeholder={"Ingredients"}
+                      control={translateControl}
+                      errors={translateErrors}
+                      wrapperClass="pt-6 mr-6 w-full"
+                    />
+                    <CustomTextField
+                      name="howToUse"
+                      placeholder={"How to use"}
+                      control={translateControl}
+                      errors={translateErrors}
+                      wrapperClass="pt-6 mr-6 w-full"
+                    />
+                  </div>
+                  <div className=" flex w-full justify-end mt-10">
+                    <div className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer mr-4"
+                      onClick={() => setVerifyTransalate('')}>
+                      Back
+                    </div>
+                    <div className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer"
+                      onClick={
+                        translateSubmitHandler()
+                      }>
+                      Confirm
+                    </div>
+                  </div>
+                </>
+              )}
           </div>
         </div>
       </Modal >
