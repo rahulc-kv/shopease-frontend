@@ -18,9 +18,19 @@ const getProductsApi = baseApi.injectEndpoints({
         method: 'POST',
         body: payload
       }),
+    }),
+    descriptionEnhancement: builder.mutation<
+      any,
+      any
+    >({
+      query: (payload) => ({
+        url: 'http://192.168.4.215:9000/sellease-ai/prod/desc',
+        method: 'POST',
+        body: payload
+      }),
     })
   })
 })
 export default getProductsApi;
 
-export const { useGetProductsQuery, useTranslateMutation } = getProductsApi;
+export const { useGetProductsQuery, useTranslateMutation, useDescriptionEnhancementMutation } = getProductsApi;
