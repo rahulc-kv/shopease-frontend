@@ -7,7 +7,7 @@ export const Header: React.FC = () => {
   const navigate = useNavigate();
   
   const handleLogin = () =>{
-    navigate('/seller');
+    navigate('/seller/dashboard');
   }
 
   return (
