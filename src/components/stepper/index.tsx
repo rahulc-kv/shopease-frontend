@@ -1,4 +1,4 @@
-import { AmountCredit, Dispatch, Expert, RegisterProduct,Truck,Group,Register,Rupee } from "assets/icons";
+import { AmountCredit, Dispatch, Expert, RegisterProduct,Truck,Group,Rupee,Register } from "assets/icons";
 import React from "react";
 import { StepListing } from "./stepListing";
 
