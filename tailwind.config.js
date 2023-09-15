@@ -10,7 +10,8 @@ module.exports = {
       },
       fontFamily: {
         fingerPaint: ['Finger Paint'],
-        sourceSans3: ['Source Sans 3']
+        sourceSans3: ['Source Sans 3'],
+        workSans: ['Work Sans']
       },
     },
   },

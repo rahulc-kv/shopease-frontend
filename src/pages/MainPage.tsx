@@ -1,5 +1,5 @@
-import { Person } from "assets/icons";
-import { Header } from "components";
+import { NoCost, ONDCNetwork, Person, SellerSite } from "assets/icons";
+import { Cards, Header } from "components";
 import { TypeAnimation } from "react-type-animation";
 import { accordion } from "components/accordion/constants";
 import React, { useState } from "react";
@@ -7,6 +7,24 @@ import React, { useState } from "react";
 import Accordian from "components/accordion/Accordian";
 import Chatbox from "components/chatbox";
 import { Stepper } from "components/stepper";
+
+const features = [
+  {
+    head: "Zero Subscription Cost",
+    body: "No upfront payment to start selling online. Pay-as-you-go model where you pay only a nominal transaction fee per order with the seller app for ONDC Network.",
+    icon: <NoCost height={60} width={60} />
+  },
+  {
+    head: "Connected With ONDC Network",
+    body: "Register your presence on the huge ONDC network that makes your products discoverable by customers all over India.",
+    icon: <ONDCNetwork height={60} width={60} />
+  },
+  {
+    head: "Own Seller Page",
+    body: "Sell products from your dedicated seller page to get undivided customer attention. Make it easy for your loyal customers to buy from you with a unique QR code for your business.",
+    icon: <SellerSite height={60} width={60} />
+  }
+]
 
 const MainPage = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -18,6 +36,7 @@ const MainPage = () => {
       setOpenIndex(index);
     }
   };
+
   return (
     <div className="100%">
       <Header />
@@ -48,6 +67,24 @@ const MainPage = () => {
           </div>
           <Person height={500} width={500} />
         </div>
+
+        <div className="flex w-full flex-col items-center text-[34px] mt-10 text-[#212529]">
+          <div className="font-workSans">
+            Why your business should be on SellEase
+          </div>
+          <div className="text-base font-workSans">
+            Designed for the unique needs of merchants across India. Selling online was never this easy and quick
+          </div>
+          <div className="flex flex-row mt-10">
+            {features.map((feature, index) => (
+              <Cards
+                key={index}
+                feature={feature}
+              />
+            ))}
+          </div>
+        </div>
+
         <div className="mt-8">
           <Stepper />
         </div>
@@ -63,7 +100,7 @@ const MainPage = () => {
           ))}
         </div>
       </div>
-      <Chatbox/>
+      <Chatbox />
     </div>
   );
 };
