@@ -5,7 +5,6 @@ import RevenueChart from "components/revenue-card/RevenueChart";
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import { EmptyProfile } from "assets/icons";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

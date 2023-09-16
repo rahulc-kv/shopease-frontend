@@ -1,4 +1,4 @@
-import { SellEase, SellEaseWhite } from "assets/icons";
+import {  SellEaseWhite } from "assets/icons";
 import NavBar from "components/nav-bar/NavBar";
 import TopBar from "components/top-bar/TopBar";
 import AddProductPage from "pages/AddProductPage";
