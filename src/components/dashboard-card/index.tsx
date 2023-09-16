@@ -4,7 +4,7 @@ import MetricsCard from "./dashboardCard";
 
 export const DashboardToolbar: React.FC = () => {
   return (
-    <div className="flex w-full flex-wrap  gap-6 justify-between">
+    <div className="flex w-full h-28 flex-wrap gap-6 justify-start">
       <MetricsCard
         label="Total orders"
         value={36778}

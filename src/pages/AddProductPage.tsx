@@ -14,6 +14,7 @@ import { Verified } from "assets/icons";
 
 import { useDescriptionEnhancementMutation, useTranslateMutation,  usePostBulkUploadMutation  } from "services/api";
 import { TRANSLATION } from "constants/common";
+import { useAddPayloadMutation } from "services/api";
 
 const AddProductPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,12 +25,14 @@ const AddProductPage = () => {
 
   const [bulkUpload, { data: uploadData, isSuccess: isSuccessOnUpload }] = usePostBulkUploadMutation();
   const [openModal, setOpenModal] = useState(false);
-  const [verifyTranslate, setVerifyTransalate] = useState('');
-  const [verifiedTranslations, setVerifiedTransaltions] = useState<string[]>([]);
+  const [verifyTranslate, setVerifyTransalate] = useState("");
+  const [verifiedTranslations, setVerifiedTransaltions] = useState<string[]>(
+    []
+  );
   const [translatedValues, setTranslatedValues] = useState({
     malayalam: {},
     hindi: {},
-    tamil: {}
+    tamil: {},
   });
   const [uploadedFile, setUploadedFile] = useState<File>();
 
@@ -62,7 +65,8 @@ const AddProductPage = () => {
   });
 
   const [translate, { isLoading: isLoadingTranslate }] = useTranslateMutation();
-  const [enhanceDescription, { isLoading: isLoadingEnhancer }] = useDescriptionEnhancementMutation();
+  const [enhanceDescription, { isLoading: isLoadingEnhancer }] =
+    useDescriptionEnhancementMutation();
 
   const {
     control: translateControl,
@@ -92,8 +96,8 @@ const AddProductPage = () => {
           description: values.description,
           ingredients: values.ingredients,
           how_to_use: values.howToUse,
-          language: TRANSLATION[verifyTranslate]
-        }).unwrap()
+          language: TRANSLATION[verifyTranslate],
+        }).unwrap();
         // call api;
         // const response = {
         //   name: 'Name',
@@ -102,19 +106,65 @@ const AddProductPage = () => {
         //   howToUse: "sdsfsdf"
         // }
         if (response && response.status === "ok") {
-          setTranslateValue('name', response.result.name);
-          setTranslateValue('description', response.result.description);
-          setTranslateValue('howToUse', response.result.how_to_use);
-          setTranslateValue('ingredients', response.result.ingredients);
+          setTranslateValue("name", response.result.name);
+          setTranslateValue("description", response.result.description);
+          setTranslateValue("howToUse", response.result.how_to_use);
+          setTranslateValue("ingredients", response.result.ingredients);
         }
-      }
+      };
       api();
     }
   }, [verifyTranslate]);
+  const [addProduct] = useAddPayloadMutation();
 
+  const getFormattedValue = (key: string, initialObject) => {
+    const result = {};
+
+    for (const lang in translatedValues) {
+      if (translatedValues.hasOwnProperty(lang)) {
+        const langData = translatedValues[lang];
+        const langValue = langData[key];
+
+        // Check if the langValue is not empty before adding it to the result
+        if (langValue?.trim() !== "") {
+          const langKey = lang.slice(0, 2);
+
+          // Check if the langKey is not equal to the key being processed
+          if (langKey !== key) {
+            result[langKey] = langValue;
+          }
+        }
+      }
+    }
+    const mergedObject = { ...initialObject, ...result };
+
+    return JSON.stringify(mergedObject);
+  };
 
   const handleData = (values: FormFieldValues) => {
-    console.log(values);
+    addProduct({
+      brandId: values.brandId,
+      categoryId: values.categoryId,
+      description: getFormattedValue("description", { en: values.description }),
+      height: Number(values.height),
+      howToUse: getFormattedValue("howToUse", { en: values.howToUse }),
+      ingredients: getFormattedValue("ingredients", { en: values.ingredients }),
+      itemSold: Number(values.itemSold),
+      length: Number(values.itemSold),
+      name: getFormattedValue("name", { en: values.name }),
+      productImages: [
+        {
+          url: values.productImages[0].url,
+          description: values.productImages[0].description,
+        },
+      ],
+      retailPrice: Number(values.retailPrice),
+      sku: values.sku,
+      stockLimit: Number(values.stockLimit),
+      version: Number(values.version),
+      weight: Number(values.weight),
+      width: Number(values.width),
+    });
   };
 
   const submitHandler = () => {
@@ -152,43 +202,49 @@ const AddProductPage = () => {
   };
 
   const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: 800,
-    bgcolor: 'background.paper',
+    bgcolor: "background.paper",
     boxShadow: 24,
-    p: 4
+    p: 4,
   };
   const handleTranslateVerifiedData = (values: TranslateFormFieldValues) => {
     setTranslatedValues((curr) => ({
       ...curr,
-      [verifyTranslate]: values
-    }))
+      [verifyTranslate]: values,
+    }));
     setVerifiedTransaltions((curState) => {
       curState.push(verifyTranslate);
       return curState;
-    })
-    setVerifyTransalate('');
-
-  }
+    });
+    setVerifyTransalate("");
+  };
   console.log(translatedValues);
 
   const translateSubmitHandler = () => {
     return translateHandleSubmit(handleTranslateVerifiedData);
   };
 
-
   const handleEnhance = async () => {
-    const response = await enhanceDescription({ name: getValues().description }).unwrap();
-    if (response && response.status === 'ok' && response.result?.text) {
-      setValue('description', response.result.text)
+    const response = await enhanceDescription({
+      name: getValues().description,
+    }).unwrap();
+    if (response && response.status === "ok" && response.result?.text) {
+      setValue("description", response.result.text);
     }
+  };
+
+  function createObjectURL(object: Blob | MediaSource | File) {
+    return window.URL
+      ? window.URL.createObjectURL(object)
+      : window.webkitURL.createObjectURL(object);
   }
 
   return (
-    <div className=" m-8 mt-[100px] bg-white p-8">
+    <div className=" m-8 mt-[100px] bg-white h-full p-8">
       <Modal
         open={showModal}
         aria-labelledby="modal-text"
@@ -204,7 +260,7 @@ const AddProductPage = () => {
           <CustomSwitch
             name="isArchived"
             control={control}
-            label={'Is Archived'}
+            label={"Is Archived"}
             checked={showCommitmentAmount}
             handleChange={onClickToggleCommitmentAmount}
           />
@@ -258,10 +314,14 @@ const AddProductPage = () => {
             wrapperClass="pt-6 mr-6 w-full"
           />
           <div
-            className="p-3 bg-primary flex items-center justify-center text-white min-w-[90px] cursor-pointer h-[48px] rounded-md mr-6"
+            className="p-3 mt-[24px] bg-primary flex items-center justify-center text-white min-w-[90px] cursor-pointer h-[48px] rounded-md mr-6"
             onClick={handleEnhance}
           >
-            {isLoadingEnhancer ? <CircularProgress size={20}  sx={{color: 'white'}}/> : 'Enhance'}
+            {isLoadingEnhancer ? (
+              <CircularProgress size={20} sx={{ color: "white" }} />
+            ) : (
+              "Enhance"
+            )}
           </div>
         </div>
         <div className="flex flex-row w-[100%]">
@@ -349,27 +409,29 @@ const AddProductPage = () => {
             wrapperClass="pt-6 w-full"
           />
         </div>
-        <div className="flex flex-row w-[66%]">
-          <CustomTextField
-            name="productImages.[0].url"
-            placeholder={"Image URL"}
-            control={control}
+        <div className="flex flex-col w-[32%] pt-6">
+          <div className="pb-2 text-base font-normal text-black/60">
+           Product Image
+          </div>
+          <FileUploader
+            name={`productImages.${0}.url`}
+            enableCrop={true}
+            sizeInMb={3}
             errors={errors}
-            wrapperClass="pt-6 mr-6 w-full"
-          />
-          <CustomTextField
-            name="productImages.[0].description"
-            placeholder={"Description"}
-            control={control}
-            errors={errors}
-            wrapperClass="pt-6 w-full"
+            fileUploadSuccessHandler={(file, path) => {
+              setValue(`productImages.${0}.url`, createObjectURL(file));
+              setValue(`productImages.${0}.description`, file.name);
+            }}
+            deleteFileHandler={() =>
+              setValue("productImages", [{ url: undefined, description: "" }])
+            }
           />
         </div>
         <div className="flex justify-end mt-8 mr-auto rounded-md text-white">
           <button
             className="p-3 bg-primary rounded-md mr-6"
-            type="submit"
             onClick={() => setOpenModal(true)}
+            type="button"
           >
             Translate Details
           </button>
@@ -394,6 +456,7 @@ const AddProductPage = () => {
               </div>
               <FileUploader
                 name="bulkFile"
+                size='large'
                 enableCrop={true}
                 sizeInMb={3}
                 supportedFormats={CSV_FORMAT}
@@ -439,7 +502,7 @@ const AddProductPage = () => {
         aria-describedby="modal-modal-description"
       >
         <div className="flex justify-center items-center h-full">
-          <div className=" relative flex items-center p-8 font-workSans text-[#212529] bg-white w-[800px] h-[400px] rounded-lg" >
+          <div className=" relative flex items-center p-8 font-workSans text-[#212529] bg-white w-[800px] h-[400px] rounded-lg">
             <div
               className="absolute top-5 text-2xl cursor-pointer right-5"
               onClick={() => setOpenModal(false)}
@@ -449,34 +512,39 @@ const AddProductPage = () => {
             <div className="flex flex-col w-full">
               <div className="flex flex-row justify-between items-center border border-gray-300 rounded-lg shadow-lg w-full p-4 mb-4">
                 Verify transation in Malayalam
-                {verifiedTranslations.includes('malayalam') ? (
+                {verifiedTranslations.includes("malayalam") ? (
                   <Verified width={80} height={40} />
                 ) : (
                   <div
                     className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer"
-                    onClick={() => setVerifyTransalate('malayalam')}>
+                    onClick={() => setVerifyTransalate("malayalam")}
+                  >
                     Verify
                   </div>
                 )}
               </div>
               <div className="flex flex-row justify-between items-center border border-gray-300 rounded-lg shadow-lg w-full p-4 mb-4">
                 Verify transation in Hindi
-                {verifiedTranslations.includes('hindi') ? (
+                {verifiedTranslations.includes("hindi") ? (
                   <Verified width={80} height={40} />
                 ) : (
-                  <div className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer"
-                    onClick={() => setVerifyTransalate('hindi')}>
+                  <div
+                    className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer"
+                    onClick={() => setVerifyTransalate("hindi")}
+                  >
                     Verify
                   </div>
                 )}
               </div>
               <div className="flex flex-row justify-between items-center border border-gray-300 rounded-lg shadow-lg w-full p-4 mb-4">
                 Verify transation in Tamil
-                {verifiedTranslations.includes('tamil') ? (
+                {verifiedTranslations.includes("tamil") ? (
                   <Verified width={80} height={40} />
                 ) : (
-                  <div className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer"
-                    onClick={() => setVerifyTransalate('tamil')}>
+                  <div
+                    className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer"
+                    onClick={() => setVerifyTransalate("tamil")}
+                  >
                     Verify
                   </div>
                 )}
@@ -486,83 +554,81 @@ const AddProductPage = () => {
         </div>
       </Modal>
 
-
       <Modal
         open={!!verifyTranslate}
-        onClose={() => setVerifyTransalate('')}
+        onClose={() => setVerifyTransalate("")}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <div className="flex justify-center items-center h-full">
-          <div className=" relative flex flex-col items-center p-8 font-workSans text-[#212529] bg-white w-[800px] h-[520px] rounded-lg" >
+          <div className=" relative flex flex-col items-center p-8 font-workSans text-[#212529] bg-white w-[800px] h-[520px] rounded-lg">
             <div
               className="absolute top-5 text-2xl cursor-pointer right-5"
-              onClick={() => setVerifyTransalate('')}
+              onClick={() => setVerifyTransalate("")}
             >
               X
             </div>
             <div className="w-full text-xl font-workSans text-[#212529]">
               Verify Transalation in {verifyTranslate}
             </div>
-            {!isLoadingTranslate ?
-              (
-                <div className="flex items-center justify-center w-full h-full">
-                  <CircularProgress />
+            {!isLoadingTranslate ? (
+              <div className="flex items-center justify-center w-full h-full">
+                <CircularProgress />
+              </div>
+            ) : (
+              <>
+                <div className="w-full">
+                  <CustomTextField
+                    name="name"
+                    placeholder={"Name"}
+                    control={translateControl}
+                    errors={translateErrors}
+                    wrapperClass="pt-6 mr-6 w-full"
+                  />
+                  <CustomTextField
+                    name="description"
+                    placeholder={"Description"}
+                    control={translateControl}
+                    errors={translateErrors}
+                    multiline
+                    rows={3}
+                    wrapperClass="pt-6 mr-6 w-full"
+                  />
+                  <CustomTextField
+                    name="ingredients"
+                    placeholder={"Ingredients"}
+                    control={translateControl}
+                    errors={translateErrors}
+                    wrapperClass="pt-6 mr-6 w-full"
+                  />
+                  <CustomTextField
+                    name="howToUse"
+                    placeholder={"How to use"}
+                    control={translateControl}
+                    errors={translateErrors}
+                    wrapperClass="pt-6 mr-6 w-full"
+                  />
                 </div>
-              ) : (
-                <>
-                  <div className="w-full">
-                    <CustomTextField
-                      name="name"
-                      placeholder={"Name"}
-                      control={translateControl}
-                      errors={translateErrors}
-                      wrapperClass="pt-6 mr-6 w-full"
-                    />
-                    <CustomTextField
-                      name="description"
-                      placeholder={"Description"}
-                      control={translateControl}
-                      errors={translateErrors}
-                      multiline
-                      rows={3}
-                      wrapperClass="pt-6 mr-6 w-full"
-                    />
-                    <CustomTextField
-                      name="ingredients"
-                      placeholder={"Ingredients"}
-                      control={translateControl}
-                      errors={translateErrors}
-                      wrapperClass="pt-6 mr-6 w-full"
-                    />
-                    <CustomTextField
-                      name="howToUse"
-                      placeholder={"How to use"}
-                      control={translateControl}
-                      errors={translateErrors}
-                      wrapperClass="pt-6 mr-6 w-full"
-                    />
+                <div className=" flex w-full justify-end mt-10">
+                  <div
+                    className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer mr-4"
+                    onClick={() => setVerifyTransalate("")}
+                  >
+                    Back
                   </div>
-                  <div className=" flex w-full justify-end mt-10">
-                    <div className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer mr-4"
-                      onClick={() => setVerifyTransalate('')}>
-                      Back
-                    </div>
-                    <div className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer"
-                      onClick={
-                        translateSubmitHandler()
-                      }>
-                      Confirm
-                    </div>
+                  <div
+                    className="py-2 px-4 bg-primary text-white rounded-lg cursor-pointer"
+                    onClick={translateSubmitHandler()}
+                  >
+                    Confirm
                   </div>
-                </>
-              )}
+                </div>
+              </>
+            )}
           </div>
         </div>
-      </Modal >
-
-
-    </div >
+      </Modal>
+    </div>
   );
 };
 

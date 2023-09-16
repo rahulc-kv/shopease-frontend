@@ -23,6 +23,13 @@ const productsApi = baseApi.injectEndpoints({
         body: payload,
       }),
     }),
+    addPayload: builder.mutation<any, any>({
+      query: (payload) => ({
+        url: '/products',
+        method: "POST",
+        body:payload
+      }),
+    })
   }),
 });
 const uploadsApi = baseApi2.injectEndpoints({
@@ -50,5 +57,6 @@ export const {
   useLazyGetProductsQuery,
   useGetProductsQuery,
   useTranslateMutation,
-  useDescriptionEnhancementMutation
+  useDescriptionEnhancementMutation,
+  useAddPayloadMutation,
 } = productsApi;

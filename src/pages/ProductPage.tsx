@@ -1,13 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGetProductsQuery, useLazyGetProductsQuery } from "services/api";
+import { useGetProductsQuery } from "services/api";
 
 const ProductPage = ({ selectedLanguage }) => {
     const navigate = useNavigate();
     const onClick = () => navigate(`/seller/add-product`);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [data, setData] = useState(null);
     const languageNameToKey = {
         'English': 'en',
         'Malayalam': 'ma',
@@ -27,7 +26,7 @@ const ProductPage = ({ selectedLanguage }) => {
 
     const checkJson = (itemName) => {
         console.log("here");
-        
+
         try {
             const parsedObj = JSON.parse(itemName.name);
             return parsedObj;
@@ -40,6 +39,7 @@ const ProductPage = ({ selectedLanguage }) => {
         top: '50px',
         right: '10px'
     };
+
     return (
 
         <div className="min-w-screen-xs px-4 lg:px-12 p-10" style={{ position: 'relative', minHeight: "" }}>
@@ -124,7 +124,7 @@ const ProductPage = ({ selectedLanguage }) => {
                                             scope="row"
                                             className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap"
                                         >
-                                            {itemName[selectedLanguageKey] === undefined ? item.name : itemName[selectedLanguageKey]}
+                                            {itemName[selectedLanguageKey] === undefined ? (itemName.en === undefined ? item.name : itemName.en) : itemName[selectedLanguageKey]}
                                         </th>
                                         <td className="px-4 py-3">{item.category.name}</td>
                                         <td className="px-4 py-3">{item.retailPrice}</td>
