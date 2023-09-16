@@ -34,7 +34,7 @@ const RevenueChart: React.FC = () => {
       {
         label: "Earnings",
         data: [200, 300, 250, 400, 350],
-        borderColor: "rgb(255, 99, 132)",
+        borderColor: "rgb(125, 199, 132)",
         fill: false,
       },
       {

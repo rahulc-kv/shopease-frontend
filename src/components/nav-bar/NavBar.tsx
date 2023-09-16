@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { NavBarProps } from "./types";
+import { EmptyProfile } from "assets/icons";
 
 const NavBar: FC<NavBarProps> = (props) => {
   const { navBarItems, title } = props;
@@ -27,7 +28,12 @@ const NavBar: FC<NavBarProps> = (props) => {
       bgGrad border-r-2 border-gray-100"
     >
       <div className="flex flex-col mt-5">
-        <div className="mb-6 cursor-pointer" onClick={()=> navigate('/main-page')}>{title}</div>
+        <div
+          className="mb-6 cursor-pointer"
+          onClick={() => navigate("/main-page")}
+        >
+          {title}
+        </div>
         {navBarItems.map((navBarItem) => {
           const { icon: NavbarIcon } = navBarItem;
           return (
@@ -49,6 +55,16 @@ const NavBar: FC<NavBarProps> = (props) => {
             </div>
           );
         })}
+      </div>
+      <div className="h-24 p-4 flex items-center">
+        <div className="w-full pt-4 pl-2 border-t border-white flex gap-3">
+          <EmptyProfile className="w-[40px] h-[40px]" />
+          <div className="flex flex-col justify-center gap-1">
+            <div className="text-[#1A91A4] bg-white px-2 rounded-md text-lg font-workSans font-semibold">
+              Anna
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
