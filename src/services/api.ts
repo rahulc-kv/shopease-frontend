@@ -1,4 +1,4 @@
-import { baseApi, baseApi2 } from "./index";
+import { baseApi } from "./index";
 
 const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -7,7 +7,7 @@ const productsApi = baseApi.injectEndpoints({
         url: "/products",
         method: "GET",
       }),
-      providesTags: ["products.list"],
+      providesTags: ["productlist"],
     }),
     translate: builder.mutation<any, any>({
       query: (payload) => ({
@@ -32,7 +32,7 @@ const productsApi = baseApi.injectEndpoints({
     })
   }),
 });
-const uploadsApi = baseApi2.injectEndpoints({
+const uploadsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     postBulkUpload: builder.mutation<any, File>({
       query: (payload) => {
@@ -41,12 +41,12 @@ const uploadsApi = baseApi2.injectEndpoints({
 
         formData.append("csv_file", payload);
         return {
-          url: "/sellease-ai/process-csv",
+          url: "http://192.168.4.215:9000/sellease-ai/process-csv",
           method: "POST",
           body: formData,
         };
       },
-      invalidatesTags: ["products.list"],
+      invalidatesTags: ["productlist"],
     }),
   }),
 });

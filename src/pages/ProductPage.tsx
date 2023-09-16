@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { CircularProgress } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetProductsQuery } from "services/api";
@@ -22,7 +23,7 @@ const ProductPage = ({ selectedLanguage }) => {
         setOpenDropdownId((prevId) => (prevId === itemId ? null : itemId));
     };
 
-    const { data: productList, isSuccess } = useGetProductsQuery();
+    const { data: productList, isLoading } = useGetProductsQuery();
 
     const checkJson = (itemName) => {
         console.log("here");
@@ -112,7 +113,11 @@ const ProductPage = ({ selectedLanguage }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {isSuccess && productList.data.data.map((item) => {
+                            {isLoading ? (
+                                <div className="w-[1280px] h-[500px] flex items-center justify-center">
+                                    <CircularProgress />
+                                </div>
+                            ) : (productList.data.data.map((item) => {
                                 const itemName = checkJson(item);
                                 return (
 
@@ -151,7 +156,7 @@ const ProductPage = ({ selectedLanguage }) => {
                                         </td>
                                     </tr>
                                 )
-                            })}
+                            }))}
                         </tbody>
                     </table>
                 </div>
