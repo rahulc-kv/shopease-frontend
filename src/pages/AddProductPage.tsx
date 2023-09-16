@@ -425,8 +425,8 @@ const AddProductPage = () => {
         <div className="flex justify-end mt-8 mr-auto rounded-md text-white">
           <button
             className="p-3 bg-primary rounded-md mr-6"
-            type="submit"
             onClick={() => setOpenModal(true)}
+            type="button"
           >
             Translate Details
           </button>
