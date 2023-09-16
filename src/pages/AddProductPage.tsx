@@ -571,7 +571,7 @@ const AddProductPage = () => {
             <div className="w-full text-xl font-workSans text-[#212529]">
               Verify Transalation in {verifyTranslate}
             </div>
-            {!isLoadingTranslate ? (
+            {isLoadingTranslate ? (
               <div className="flex items-center justify-center w-full h-full">
                 <CircularProgress />
               </div>
