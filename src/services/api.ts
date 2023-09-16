@@ -1,32 +1,26 @@
-import baseApi from "./index";
+import { baseApi, baseApi2 } from "./index";
 
-const getProductsApi = baseApi.injectEndpoints({
+const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query<any, void>({
       query: () => ({
-        url: '/products',
-        method: 'get'
+        url: "/products",
+        method: "GET",
       }),
-      providesTags: ['products.list']
+      providesTags: ["products.list"],
     }),
-    translate: builder.mutation<
-      any,
-      any
-    >({
+    translate: builder.mutation<any, any>({
       query: (payload) => ({
-        url: 'http://192.168.4.215:9000/sellease-ai/prod/translate',
-        method: 'POST',
-        body: payload
+        url: "http://192.168.4.215:9000/sellease-ai/prod/translate",
+        method: "POST",
+        body: payload,
       }),
     }),
-    descriptionEnhancement: builder.mutation<
-      any,
-      any
-    >({
+    descriptionEnhancement: builder.mutation<any, any>({
       query: (payload) => ({
-        url: 'http://192.168.4.215:9000/sellease-ai/prod/desc',
-        method: 'POST',
-        body: payload
+        url: "http://192.168.4.215:9000/sellease-ai/prod/desc",
+        method: "POST",
+        body: payload,
       }),
     }),
     addPayload: builder.mutation<any, any>({
@@ -36,8 +30,33 @@ const getProductsApi = baseApi.injectEndpoints({
         body:payload
       }),
     })
-  })
-})
-export default getProductsApi;
+  }),
+});
+const uploadsApi = baseApi2.injectEndpoints({
+  endpoints: (builder) => ({
+    postBulkUpload: builder.mutation<any, File>({
+      query: (payload) => {
+        const formData = new FormData();
+        console.log("sdffdsf", payload);
 
-export const { useGetProductsQuery,useAddPayloadMutation, useTranslateMutation, useDescriptionEnhancementMutation } = getProductsApi;
+        formData.append("csv_file", payload);
+        return {
+          url: "/sellease-ai/process-csv",
+          method: "POST",
+          body: formData,
+        };
+      },
+      invalidatesTags: ["products.list"],
+    }),
+  }),
+});
+
+export const { usePostBulkUploadMutation } = uploadsApi;
+
+export const {
+  useLazyGetProductsQuery,
+  useGetProductsQuery,
+  useTranslateMutation,
+  useDescriptionEnhancementMutation,
+  useAddPayloadMutation,
+} = productsApi;

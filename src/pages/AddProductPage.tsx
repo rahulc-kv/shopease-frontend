@@ -11,10 +11,8 @@ import { useForm } from "react-hook-form";
 import { FormFieldValues, TranslateFormFieldValues } from "./types";
 
 import { Verified } from "assets/icons";
-import {
-  useDescriptionEnhancementMutation,
-  useTranslateMutation,
-} from "services/api";
+
+import { useDescriptionEnhancementMutation, useTranslateMutation,  usePostBulkUploadMutation  } from "services/api";
 import { TRANSLATION } from "constants/common";
 import { useAddPayloadMutation } from "services/api";
 
@@ -25,6 +23,7 @@ const AddProductPage = () => {
   const [showCommitmentAmount, setshowCommitmentAmount] =
     useState<boolean>(false);
 
+  const [bulkUpload, { data: uploadData, isSuccess: isSuccessOnUpload }] = usePostBulkUploadMutation();
   const [openModal, setOpenModal] = useState(false);
   const [verifyTranslate, setVerifyTransalate] = useState("");
   const [verifiedTranslations, setVerifiedTransaltions] = useState<string[]>(
@@ -35,6 +34,7 @@ const AddProductPage = () => {
     hindi: {},
     tamil: {},
   });
+  const [uploadedFile, setUploadedFile] = useState<File>();
 
   const {
     control,
@@ -187,9 +187,14 @@ const AddProductPage = () => {
     setshowCommitmentAmount(!showCommitmentAmount);
   };
 
-  const handleUploadFile = (file) => {
-    console.log(file);
+  const handleUploadFile = () => {
+    console.log('file' , uploadedFile);
+    bulkUpload(uploadedFile);
   };
+
+  useEffect(() => {
+    setIsModalOpen(false);
+  }, [uploadData, isSuccessOnUpload]);
 
   const handleCloseRangeModal = (index: number) => {
     setValue(`description`, currentField);
@@ -456,13 +461,14 @@ const AddProductPage = () => {
                 sizeInMb={3}
                 supportedFormats={CSV_FORMAT}
                 errors={errors}
-                fileUploadSuccessHandler={(file, path) =>
+                fileUploadSuccessHandler={(file, path) =>{
                   // setValue("bulkFile", {
                   //   url: createObjectURL(file),
                   //   description: path,
                   // })
+                  setUploadedFile(file)
                   console.log(file)
-                }
+                }}
                 deleteFileHandler={() =>
                   // setValue("bulkFile", { url: undefined, description: "" })
                   console.log("deletef file")
